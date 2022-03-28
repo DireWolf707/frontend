@@ -4,7 +4,7 @@
     import Footer from "$lib/UI/Footer.svelte";
 </script>
 
-<div class="flex flex-col justify-center h-screen mx-2">
+<div class="flex flex-col h-screen mx-2">
     <Header />
     <div class="mb-auto">
         <slot />
