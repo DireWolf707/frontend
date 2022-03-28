@@ -18,7 +18,7 @@
         } catch (error) {
             console.log(error);            
         } finally {
-            formData = initialState;
+            formData = {...initialState};
         }
     }
 </script>
