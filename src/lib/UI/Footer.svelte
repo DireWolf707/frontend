@@ -1,4 +1,4 @@
-<footer class="footer p-10 bg-neutral text-neutral-content">
+<footer class="footer p-10 bg-neutral text-neutral-content rounded-t-md">
     <div>
       <span class="footer-title">Services</span> 
       <a href="/" class="link link-hover">Branding</a>
