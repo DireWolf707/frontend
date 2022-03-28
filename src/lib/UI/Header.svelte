@@ -6,7 +6,13 @@
 
     <div class="flex-none">
 
-        <a href="/" class="btn btn-ghost rounded-btn">Button</a>
+        <a href="/user/login" class="btn btn-ghost rounded-btn">
+            Login
+        </a>
+
+        <a href="/user/signup" class="btn btn-ghost rounded-btn">
+            Signup
+        </a>
         
         <div class="dropdown dropdown-end">
             <button class="btn btn-ghost rounded-btn">
@@ -15,10 +21,10 @@
             </button>
             <ul class="dropdown-content menu p-2 shadow bg-neutral rounded-box w-52 mt-3">
                 <li>
-                    <a href="/">Item 1</a>
+                    <a href="/user/account">Account</a>
                 </li> 
                 <li>
-                    <a href="/">Item 2</a>
+                    <a href="/">Logout</a>
                 </li>
             </ul>
         </div>
