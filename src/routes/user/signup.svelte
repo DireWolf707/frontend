@@ -1,6 +1,7 @@
 <script>
-    let loading = false;
+    import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
 
+    let loading = false;
     let initialState = {
         email: "",
         password1: "",
@@ -52,11 +53,7 @@
         <input type="text" placeholder="retype password" bind:value="{formData.password2}"
         class="input input-bordered w-full">
 
-        {#if !loading}
-            <button class="btn btn-block my-4">Submit</button>
-        {:else}
-            <button class="btn btn-block loading my-4">loading</button>
-        {/if}
+        <LoadingButton {loading} placeholder={"submit"} />
 
     </form>
 </div>

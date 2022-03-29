@@ -1,6 +1,7 @@
 <script>
-    let loading = false;
+    import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
 
+    let loading = false;
     let initialState = {
         password:"",
         password1: "",
@@ -45,11 +46,7 @@
         <input type="text" placeholder="retype new password" bind:value="{formData.password2}"
         class="input input-bordered w-full">
 
-        {#if !loading}
-            <button class="btn btn-block mt-4">Change Password</button>
-        {:else}
-            <button class="btn btn-block loading mt-4">loading</button>
-        {/if}
+        <LoadingButton {loading} placeholder={"change password"} />
         
     </form>
 </div>
