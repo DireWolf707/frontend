@@ -19,6 +19,7 @@
   },
   "type": "module",
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "svelte-notifications": "^0.9.93"
   }
 }

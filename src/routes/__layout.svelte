@@ -3,6 +3,7 @@
     import Header from "$lib/UI/Header.svelte";
     import Footer from "$lib/UI/Footer.svelte";
     import LoadingBar from "$lib/Reusable/LoadingBar.svelte";
+    import Notifications from 'svelte-notifications';
     import { userStore, getUser } from '$lib/Stores/user.js';
     import { onMount } from "svelte";
     
@@ -25,7 +26,9 @@
     {#if !loading}
         <Header />
         <div class="mb-auto">
-            <slot />
+            <Notifications>
+                <slot />
+            </Notifications>
         </div>
         <Footer />
     {:else}
