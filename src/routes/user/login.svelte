@@ -1,6 +1,10 @@
 <script>
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
     import { userStore } from '$lib/Stores/user.js';
+    import { getNotificationsContext } from 'svelte-notifications';
+    import notification from '$lib/Utils/notification';
+    
+    const { addNotification } = getNotificationsContext();
 
     let loading = false;
     let initialState = {
@@ -12,6 +16,7 @@
     const loginHandler = async () => {
         loading = true;
         const err = await userStore.loginIn(formData);
+        err ? notification(addNotification, err) : notification(addNotification, 'Logged In!', 'success');
         formData = {...initialState};
         loading = false;
     }
