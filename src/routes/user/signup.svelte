@@ -1,5 +1,6 @@
 <script>
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
+    import { userStore } from '$lib/Stores/user.js';
 
     let loading = false;
     let initialState = {
@@ -7,20 +8,15 @@
         password1: "",
         password2: "",
         username: "",
+        name: "",
     };
     let formData = {...initialState};
 
-    const signupHandler = () => {
-        try {
-            loading = true;
-            setTimeout(() => {
-                loading = false;
-            },2000)
-        } catch (error) {
-            console.log(error);            
-        } finally {
-            formData = {...initialState};
-        }
+    const signupHandler = async () => {
+        loading = true;
+        const err = await userStore.signUp(formData);
+        formData = {...initialState};
+        loading = false;
     }
 </script>
 
@@ -33,6 +29,12 @@
             <span class="label-text">Email</span>
         </label>
         <input type="text" placeholder="email" bind:value="{formData.email}"
+        class="input input-bordered w-full">
+
+        <label class="label" for="">
+            <span class="label-text">Name</span>
+        </label>
+        <input type="text" placeholder="fullname" bind:value="{formData.name}"
         class="input input-bordered w-full">
 
         <label class="label" for="">

@@ -1,24 +1,19 @@
 <script>
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
+    import { userStore } from '$lib/Stores/user.js';
 
     let loading = false;
     let initialState = {
-        email: "",
-        password: ""
+        username: "john123",
+        password: "popin123"
     };
     let formData = {...initialState};
 
-    const loginHandler = () => {
-        try {
-            loading = true;
-            setTimeout(() => {
-                loading = false;
-            },2000)
-        } catch (error) {
-            console.log(error);            
-        } finally {
-            formData = {...initialState};
-        }
+    const loginHandler = async () => {
+        loading = true;
+        const err = await userStore.loginIn(formData);
+        formData = {...initialState};
+        loading = false;
     }
 </script>
 
@@ -28,15 +23,15 @@
     <form class="px-4" on:submit|preventDefault="{loginHandler}">
 
         <label class="label" for="">
-            <span class="label-text">Email</span>
+            <span class="label-text">Username</span>
         </label>
-        <input type="text" placeholder="email" bind:value="{formData.email}"
+        <input type="text" placeholder="username" bind:value="{formData.username}"
         class="input input-bordered w-full">
 
         <label class="label" for="">
             <span class="label-text">Password</span>
         </label>
-        <input type="text" placeholder="password" bind:value="{formData.password}"
+        <input type="password" placeholder="password" bind:value="{formData.password}"
         class="input input-bordered w-full">
 
         <LoadingButton {loading} placeholder={"submit"} />
