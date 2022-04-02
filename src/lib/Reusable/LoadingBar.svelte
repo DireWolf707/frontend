@@ -1,1 +1,1 @@
-<progress class="progress w-1/5"></progress>
+<progress class="progress w-1/5 m-auto"></progress>
