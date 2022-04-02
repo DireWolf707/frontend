@@ -1,6 +1,9 @@
 <script>
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
     import { userStore } from '$lib/Stores/user.js';
+    import { createEventDispatcher } from 'svelte';
+
+    const dipacth = createEventDispatcher();
 
     let loading = false;
     let initialState = {
@@ -13,6 +16,7 @@
     const changePasswordHandler = async () => {
         loading = true;
         const err = await userStore.updatePassword(formData);
+        err ? dipacth('sendNotification', {text: err}) : dipacth('sendNotification', {text: 'Password Updated!', type: 'success'});
         formData = {...initialState};
         loading = false;
     }

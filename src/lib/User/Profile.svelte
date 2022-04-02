@@ -3,6 +3,9 @@
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
     import { userStore } from '$lib/Stores/user.js';
     import { onDestroy } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dipacth = createEventDispatcher();
 
     let user;
     const userUnsub = userStore.subscribe( _user => user = _user);
@@ -14,6 +17,7 @@
     const changeProfileHandler = async () => {
         loading = true;
         const err = await userStore.updateUser(formData);
+        err ? dipacth('sendNotification', {text: err}) : dipacth('sendNotification', {text: 'Profile Updated!', type: 'success'});
         formData = {...user};
         loading = false;
     }
