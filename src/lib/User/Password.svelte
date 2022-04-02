@@ -1,25 +1,20 @@
 <script>
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
+    import { userStore } from '$lib/Stores/user.js';
 
     let loading = false;
     let initialState = {
-        password:"",
+        password: "",
         password1: "",
         password2: ""
     };
     let formData = {...initialState};
 
-    const changePasswordHandler = () => {
-        try {
-            loading = true;
-            setTimeout(() => {
-                loading = false;
-            },2000)
-        } catch (error) {
-            console.log(error);            
-        } finally {
-            formData = {...initialState};
-        }
+    const changePasswordHandler = async () => {
+        loading = true;
+        const err = await userStore.updatePassword(formData);
+        formData = {...initialState};
+        loading = false;
     }
 </script>
 

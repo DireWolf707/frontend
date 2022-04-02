@@ -1,25 +1,21 @@
 <script>
+    // @ts-nocheck
     import LoadingButton from '$lib/Reusable/LoadingButton.svelte';
+    import { userStore } from '$lib/Stores/user.js';
+    import { onDestroy } from 'svelte';
+
+    let user;
+    const userUnsub = userStore.subscribe( _user => user = _user);
+    onDestroy(userUnsub);
 
     let loading = false;
-    let initialState = {
-        fullName:"",
-        email: "",
-        username: ""
-    };
-    let formData = {...initialState};
+    let formData = {...user};
 
-    const changeProfileHandler = () => {
-        try {
-            loading = true;
-            setTimeout(() => {
-                loading = false;
-            },2000)
-        } catch (error) {
-            console.log(error);            
-        } finally {
-            formData = {...initialState};
-        }
+    const changeProfileHandler = async () => {
+        loading = true;
+        const err = await userStore.updateUser(formData);
+        formData = {...user};
+        loading = false;
     }
 </script>
 
@@ -31,7 +27,7 @@
       <label class="label" for="">
           <span class="label-text">Full Name</span>
       </label>
-      <input type="text" placeholder="full name" bind:value="{formData.fullName}"
+      <input type="text" placeholder="full name" bind:value="{formData.name}"
       class="input input-bordered w-full">
 
       <label class="label" for="">
