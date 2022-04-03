@@ -30,9 +30,13 @@ const createUserStore = () => {
 				});
 				set(res.data);
 				goto('/'); //
+				// return array of notification
+				return [{text:'Logged In!', type:'success'}];
 			} catch (e) {
-				if (e.response) return e.response.data.message;
-				return "Server is Down! Try again Later...";
+				// assign text to response or null in case of Connection Error
+				const text = e.response ? e.response.data.message : null;
+				// return array of notification
+				return [{text}];
 			}
 		},
 
@@ -45,9 +49,19 @@ const createUserStore = () => {
 				});
 				set(res.data);
 				goto('/'); //
+				return [{text:'Signed In!', type:'success'}];
 			} catch (e) {
-				if (e.response) return e.response.data.message;
-				return "Server is Down! Try again Later...";
+				// assign text to response or null in case of Connection Error
+				let text = e.response ? e.response.data.message : null;
+				// deal with multiple error scenario
+				if (text){
+					text = text.replace(':', ',').split(',').slice(1).map( e => {
+						return {text: e.trim() };
+					});
+					return text;
+				}
+				// return array of notification
+				return [{text}];
 			}
 		},
 		
@@ -58,8 +72,11 @@ const createUserStore = () => {
 				});
 				set(null);
 				goto('/');
+				return [{text:'Signed Out!', type:'warning'}];
 			} catch (e) {
-				return "Server is Down! Try again Later...";
+				// assign text to null as error can happen only in case of Connection Error
+				const text = null;
+				return [{text}];
 			}
 		},
 
@@ -71,9 +88,10 @@ const createUserStore = () => {
 					withCredentials: true
 				});
 				set(res.data);
+				return [{text:'Account Updated!', type:'success'}];
 			} catch (e) {
-				if (e.response) return e.response.data.message;
-				return "Server is Down! Try again Later...";
+				const text = e.response ? e.response.data.message : null;
+				return [{text}];
 			}
 		},
 
@@ -85,9 +103,10 @@ const createUserStore = () => {
 					withCredentials: true
 				});
 				set(res.data);
+				return [{text:'Password Updated!', type:'success'}];
 			} catch (e) {
-				if (e.response) return e.response.data.message;
-				return "Server is Down! Try again Later...";
+				const text = e.response ? e.response.data.message : null;
+				return [{text}];
 			}
 		}
 	}
