@@ -15,8 +15,8 @@
 
     const loginHandler = async () => {
         loading = true;
-        const err = await userStore.loginIn(formData);
-        err ? notification(addNotification, err) : notification(addNotification, 'Logged In!', 'success');
+        const resp = await userStore.loginIn(formData);
+        notification(addNotification, resp);
         formData = {...initialState};
         loading = false;
     }

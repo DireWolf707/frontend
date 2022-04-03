@@ -18,8 +18,8 @@
 
     const signupHandler = async () => {
         loading = true;
-        const err = await userStore.signUp(formData);
-        err ? notification(addNotification, err) : notification(addNotification, 'Signed In!', 'success');
+        const resp = await userStore.signUp(formData);
+        notification(addNotification, resp);
         formData = {...initialState};
         loading = false;
     }
