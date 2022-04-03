@@ -22,16 +22,16 @@
     })
 </script>
 
-<div class="flex flex-col h-screen mx-2">
-    {#if !loading}
-        <Header />
-        <div class="mb-auto">
-            <Notifications>
+<Notifications>
+    <div class="flex flex-col h-screen mx-2">
+        {#if !loading}
+            <Header />
+            <div class="mb-auto">
                 <slot />
-            </Notifications>
-        </div>
-        <Footer />
-    {:else}
-        <LoadingBar />
-    {/if}
-</div>
+            </div>
+            <Footer />
+        {:else}
+            <LoadingBar />
+        {/if}
+    </div>
+</Notifications>

@@ -1,8 +1,13 @@
 <script>
     import { userStore } from '$lib/Stores/user.js';
+    import { getNotificationsContext } from 'svelte-notifications';
+    import notification from '$lib/Utils/notification';
+    
+    const { addNotification } = getNotificationsContext();
 
     const logoutHandler = async () => {
-        await userStore.logout()
+        const resp = await userStore.logout();
+        notification(addNotification, resp);
     }
 </script>
 
