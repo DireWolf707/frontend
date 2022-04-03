@@ -22,7 +22,7 @@
     }
 </script>
 
-<div class="w-2/3 mx-auto">
+<div>
     <h1 class="text-2xl font-bold mb-2">Change Password</h1>
 
     <form class="sm:m-4" on:submit|preventDefault="{changePasswordHandler}">
