@@ -16,8 +16,8 @@
 
     const changeProfileHandler = async () => {
         loading = true;
-        const err = await userStore.updateUser(formData);
-        err ? dipacth('sendNotification', {text: err}) : dipacth('sendNotification', {text: 'Profile Updated!', type: 'success'});
+        const resp = await userStore.updateUser(formData);
+        dipacth('sendNotification', resp);
         formData = {...user};
         loading = false;
     }

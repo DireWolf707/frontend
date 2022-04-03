@@ -15,8 +15,8 @@
 
     const changePasswordHandler = async () => {
         loading = true;
-        const err = await userStore.updatePassword(formData);
-        err ? dipacth('sendNotification', {text: err}) : dipacth('sendNotification', {text: 'Password Updated!', type: 'success'});
+        const resp = await userStore.updatePassword(formData);
+        dipacth('sendNotification', resp);
         formData = {...initialState};
         loading = false;
     }

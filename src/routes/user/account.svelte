@@ -10,7 +10,7 @@
     let selectedMenu = menuOptions[0];
 
     const sendNotification = (e) => {
-        notification(addNotification, e.detail.text, e.detail.type);
+        notification(addNotification, e.detail);
     }
 </script>
 
