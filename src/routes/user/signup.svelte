@@ -8,11 +8,11 @@
 
     let loading = false;
     let initialState = {
-        email: "",
-        password1: "",
-        password2: "",
-        username: "",
-        name: "",
+        email: "mail@mail.com",
+        password1: "popin123",
+        password2: "popin123",
+        username: "popin12345",
+        name: "popin",
     };
     let formData = {...initialState};
 

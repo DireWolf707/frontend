@@ -7,20 +7,20 @@ export default (e) => {
 	}
 	// then check for string
 	else if (typeof err === typeof ''){
-		// if lenght is 1 after splitting, return it no need to process => my custom errors
-		if (err.split(',').length == 1) {
+		// if endswith !, return it no need to process => my custom errors
+		if (err.endsWith('!')) {
 			return [{text: err}]
 		}
 		// mongDB errors
 		err = err.replace(':', ',').split(',').slice(1).map( e => {
-			return {text: e.trim()};
+			return {text: e.split(':')[1].trim()};
 		});
 		return err;
 	} 
 	// then else because [] (and {}) are also type of object as null => validation errors
 	else {
 		err = err.map( e => {
-			return {text: `${e.param}: ${e.msg}`}
+			return {text: e.msg}
 		})
 		return err;
 	}
