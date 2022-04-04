@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 import { goto } from '$app/navigation';
 import axios from 'axios';
+import errFormatter from '$lib/Utils/errFormatter';
 
-const BASE_URL = 'http://localhost:8080';
+const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:8080';
 
 export const getUser = async () => {
 	try {
@@ -30,13 +31,10 @@ const createUserStore = () => {
 				});
 				set(res.data);
 				goto('/'); //
-				// return array of notification
+				// return array of notification used by notification function
 				return [{text:'Logged In!', type:'success'}];
 			} catch (e) {
-				// assign text to response or null in case of Connection Error
-				const text = e.response ? e.response.data.message : null;
-				// return array of notification
-				return [{text}];
+				return errFormatter(e);
 			}
 		},
 
@@ -51,17 +49,7 @@ const createUserStore = () => {
 				goto('/'); //
 				return [{text:'Signed In!', type:'success'}];
 			} catch (e) {
-				// assign text to response or null in case of Connection Error
-				let text = e.response ? e.response.data.message : null;
-				// deal with multiple error scenario
-				if (text){
-					text = text.replace(':', ',').split(',').slice(1).map( e => {
-						return {text: e.trim() };
-					});
-					return text;
-				}
-				// return array of notification
-				return [{text}];
+				return errFormatter(e);
 			}
 		},
 		
@@ -74,9 +62,7 @@ const createUserStore = () => {
 				goto('/');
 				return [{text:'Signed Out!', type:'warning'}];
 			} catch (e) {
-				// assign text to null as error can happen only in case of Connection Error
-				const text = null;
-				return [{text}];
+				return errFormatter(e);
 			}
 		},
 
@@ -90,8 +76,7 @@ const createUserStore = () => {
 				set(res.data);
 				return [{text:'Account Updated!', type:'success'}];
 			} catch (e) {
-				const text = e.response ? e.response.data.message : null;
-				return [{text}];
+				return errFormatter(e);
 			}
 		},
 
@@ -105,8 +90,7 @@ const createUserStore = () => {
 				set(res.data);
 				return [{text:'Password Updated!', type:'success'}];
 			} catch (e) {
-				const text = e.response ? e.response.data.message : null;
-				return [{text}];
+				return errFormatter(e);
 			}
 		}
 	}
